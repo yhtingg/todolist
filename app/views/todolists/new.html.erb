@@ -1,1 +1,23 @@
 <h1>New Todo</h1>
+
+<%= form_with scope: :todolist, local: true do |form| %>
+  <p>
+    <%= form.label :todo %><br>
+    <%= form.text_field :todo %>
+  </p>
+
+  <p>
+    <%= form.label :priority %><br>
+    <%= form.select(:priority,
+    options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]]))%><br>
+  </p>
+
+  <p>
+    <%= form.label :Date %><br>
+    <%= form.date_select :Date %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
