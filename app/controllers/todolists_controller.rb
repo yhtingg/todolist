@@ -8,14 +8,17 @@ class TodolistsController < ApplicationController
   end
 
   def new
+    @todolist = Todolist.new
   end
 
   def create
-    @todolist =
-    Todolist.new(todolist_params)
+    @todolist = Todolist.new(todolist_params)
 
-    @todolist.save
-    redirect_to @todolist
+    if @todolist.save
+      redirect_to @todolist
+    else
+      render 'new'
+    end
   end
 
   private

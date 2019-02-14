@@ -2,3 +2,15 @@
   <strong>Todo:</strong>
   <%= @todolist.todo %>
 </p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @todolist.priority %>
+</p>
+
+<p>
+  <strong>Deadline:</strong>
+  <%= @todolist.deadline %>
+</p>
+
+<%= link_to 'Back', todolists_path %>
