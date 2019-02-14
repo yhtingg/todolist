@@ -1,4 +1,8 @@
 class TodolistsController < ApplicationController
+  def index
+    @todolists = Todolist.all
+  end
+
   def show
     @todolist = Todolist.find(params[:id])
   end
