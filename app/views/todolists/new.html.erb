@@ -1,6 +1,6 @@
 <h1>New Todo</h1>
 
-<%= form_with scope: :todolist, local: true do |form| %>
+<%= form_with scope: :todolist, url: todolists_path, local: true do |form| %>
   <p>
     <%= form.label :todo %><br>
     <%= form.text_field :todo %>
@@ -13,8 +13,8 @@
   </p>
 
   <p>
-    <%= form.label :Date %><br>
-    <%= form.date_select :Date %>
+    <%= form.label :deadline %><br>
+    <%= form.date_select :deadline %>
   </p>
 
   <p>
