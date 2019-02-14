@@ -13,6 +13,9 @@
       <td><%= todolist.todo %></td>
       <td><%= link_to 'Show', todolist_path(todolist) %></td>
       <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
+      <td><%= link_to 'Delete', todolist_path(todolist),
+              method: :delete,
+              data: {confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>
