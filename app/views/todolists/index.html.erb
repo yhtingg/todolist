@@ -5,13 +5,14 @@
 <table>
   <tr>
     <th>Todo</th>
-    <th></th>
+    <thcolspan="2"></th>
   </tr>
 
   <% @todolists.each do |todolist| %>
     <tr>
       <td><%= todolist.todo %></td>
       <td><%= link_to 'Show', todolist_path(todolist) %></td>
+      <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
     </tr>
   <% end %>
 </table>
