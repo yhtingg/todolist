@@ -1,21 +1,39 @@
 <h1>My Todo List!</h1>
 
 <%= link_to 'New Todo Item', new_todolist_path %>
+<%= link_to 'Order by Priority', orderby_todolists_path('priority') %>
+<%= link_to 'Order by Deadline', orderby_todolists_path('deadline') %>
 
 <table>
   <tr>
-    <th>Todo</th>
     <thcolspan="2"></th>
   </tr>
 
   <% @todolists.each do |todolist| %>
     <tr>
+      <td>
+        <% if todolist.completed_at == nil %>
+          <input
+            type="checkbox"
+            data-remote="true"
+            data-url="/todolists/<%= todolist.id %>/complete"
+            data-method="patch" />
+        <% else %>
+          <input
+            checked
+            type="checkbox"
+            data-remote="true"
+            data-url="/todolists/<%= todolist.id %>/incomplete"
+            data-method="patch" />
+        <% end %>
+      </td>
       <td><%= todolist.todo %></td>
       <td><%= link_to 'Show', todolist_path(todolist) %></td>
       <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
       <td><%= link_to 'Delete', todolist_path(todolist),
               method: :delete,
               data: {confirm: 'Are you sure?' } %></td>
+      <td><%= todolist.completed_at %></td>
     </tr>
   <% end %>
 </table>

@@ -1,6 +1,12 @@
 class TodolistsController < ApplicationController
   def index
+    @orderby = params[:orderby]
     @todolists = Todolist.all
+    if @orderby == 'priority'
+      @todolists = @todolists.order('priority')
+    elsif @orderby == 'deadline'
+      @todolists = @todolists.order('deadline')
+    end
   end
 
   def show
@@ -39,6 +45,21 @@ class TodolistsController < ApplicationController
     @todolist = Todolist.find(params[:id])
     @todolist.destroy
 
+    redirect_to todolists_path
+  end
+
+  def done
+  end
+
+  def complete
+    @todolist = Todolist.find(params[:id])
+    @todolist.update_attribute(:completed_at, Time.now)
+    redirect_to todolists_path
+  end
+
+  def incomplete
+    @todolist = Todolist.find(params[:id])
+    @todolist.update_attribute(:completed_at, nil)
     redirect_to todolists_path
   end
 
