@@ -1,7 +1,7 @@
 class TodolistsController < ApplicationController
   def index
     @orderby = params[:orderby]
-    @todolists = Todolist.all
+    @todolists = Todolist.search(params[:term])
     if @orderby == 'priority'
       @todolists = @todolists.order('priority')
     elsif @orderby == 'deadline'
@@ -48,9 +48,6 @@ class TodolistsController < ApplicationController
     redirect_to todolists_path
   end
 
-  def done
-  end
-
   def complete
     @todolist = Todolist.find(params[:id])
     @todolist.update_attribute(:completed_at, Time.now)
@@ -65,6 +62,7 @@ class TodolistsController < ApplicationController
 
   private
     def todolist_params
-      params.require(:todolist).permit(:todo, :priority, :deadline)
+      params.require(:todolist).permit(:todo, :priority, :deadline,
+      :term)
     end
 end

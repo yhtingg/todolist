@@ -8,4 +8,12 @@ class Todolist < ApplicationRecord
       errors.add(:deadline, "can't be in the past")
     end
   end
+
+  def self.search(term)
+    if term
+      where('todo LIKE ?', "%#{term}%")
+    else
+      all
+    end
+  end
 end

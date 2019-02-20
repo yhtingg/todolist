@@ -1,39 +1,97 @@
-<h1>My Todo List!</h1>
+<div class="row align-self-center justify-content-center">
+  <h1>My Todo List!</h1>
+</div>
 
-<%= link_to 'New Todo Item', new_todolist_path %>
-<%= link_to 'Order by Priority', orderby_todolists_path('priority') %>
-<%= link_to 'Order by Deadline', orderby_todolists_path('deadline') %>
+<div class="row align-self-center justify-content-center mb-2">
+  <%= link_to 'Order by Priority', orderby_todolists_path('priority'), class: "btn btn-info m-1" %>
+  <%= link_to 'Order by Deadline', orderby_todolists_path('deadline'), class: "btn btn-info m-1" %>
+</div>
 
-<table>
-  <tr>
-    <thcolspan="2"></th>
-  </tr>
+<div class="row align-self-center justify-content-center">
+  <%= form_tag(todolists_path, method: :get, class: "d-none d-sm-inline-block form-inline w-50 border-left-primary navbar-search")do %>
+  <div class="input-group">
+    <%= text_field_tag :term, params[:term], class: "form-control bg-light border-0 small", placeholder: "Search for todo item" %>
+    <%= submit_tag 'Search', name: nil, class: "btn btn-primary" %>
+  </div>
+<% end %>
+</div>
 
-  <% @todolists.each do |todolist| %>
-    <tr>
-      <td>
-        <% if todolist.completed_at == nil %>
-          <input
-            type="checkbox"
-            data-remote="true"
-            data-url="/todolists/<%= todolist.id %>/complete"
-            data-method="patch" />
-        <% else %>
-          <input
-            checked
-            type="checkbox"
-            data-remote="true"
-            data-url="/todolists/<%= todolist.id %>/incomplete"
-            data-method="patch" />
+<div class="row align-self-center justify-content-center mt-3">
+  <div class="card shadow mb-4 w-75">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary float-left" style="color:#000;">Todos</h4>
+      <%= link_to 'New Todo Item', new_todolist_path, class:"btn btn-primary float-right px-3", style:"border-radius: 10rem;" %>
+    </div>
+    <div class="card-body">
+      <table class="w-100">
+        <tr>
+          <thcolspan="2"></th>
+        </tr>
+      
+        <% @todolists.each do |todolist| %>
+          <% if todolist.completed_at == nil %>
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  data-remote="true"
+                  data-url="/todolists/<%= todolist.id %>/complete"
+                  data-method="patch" />
+              </td>
+              <td><%= todolist.todo %></td>
+              <td><%= link_to 'Show', todolist_path(todolist) %></td>
+              <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
+              <td><%= link_to 'Delete', todolist_path(todolist),
+                      method: :delete,
+                      data: {confirm: 'Are you sure?' } %></td>
+              <td><%= todolist.completed_at %></td>
+            </tr>
+          <% end %>
         <% end %>
-      </td>
-      <td><%= todolist.todo %></td>
-      <td><%= link_to 'Show', todolist_path(todolist) %></td>
-      <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
-      <td><%= link_to 'Delete', todolist_path(todolist),
-              method: :delete,
-              data: {confirm: 'Are you sure?' } %></td>
-      <td><%= todolist.completed_at %></td>
-    </tr>
-  <% end %>
-</table>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row align-self-center justify-content-center">
+  <div class="card shadow mb-4 w-75">
+    <div class="card-header py-3">
+      <h4 class="m-0 font-weight-bold text-primary">Completed</h4>
+    </div>
+    <div class="card-body">
+      <table class="w-100">
+        <tr>
+          <thcolspan="2"></th>
+        </tr>
+      
+        <% @todolists.each do |todolist| %>
+          <% if todolist.completed_at != nil %>
+            <tr>
+              <td>
+                <input
+                  checked
+                  type="checkbox"
+                  data-remote="true"
+                  data-url="/todolists/<%= todolist.id %>/incomplete"
+                  data-method="patch" />
+              </td>
+              <td><%= todolist.todo %></td>
+              <td><%= link_to 'Show', todolist_path(todolist) %></td>
+              <td><%= link_to 'Edit', edit_todolist_path(todolist) %></td>
+              <td><%= link_to 'Delete', todolist_path(todolist),
+                    method: :delete,
+                    data: {confirm: 'Are you sure?' } %></td>
+              <td><%= todolist.completed_at %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row align-self-center justify-content-center">
+<% if params[:term] %>
+  <%= link_to 'Back', todolists_path, class: "btn btn-primary btn-user btn-block w-25", style:"border-radius: 10rem;" %>
+<% end %>
+</div>

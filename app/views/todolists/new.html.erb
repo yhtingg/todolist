@@ -18,23 +18,23 @@
 
   <p>
     <%= form.label :todo %><br>
-    <%= form.text_field :todo %>
+    <%= form.text_field :todo, class: "form-control form-control user w-25", style: "border-radius: 10rem;" %>
   </p>
 
   <p>
     <%= form.label :priority %><br>
     <%= form.select(:priority,
-    options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]]))%><br>
+    options_for_select([[1,1],[2,2],[3,3],[4,4],[5,5]]), {}, {class: "dropdown-toggle btn btn-secondary p-1"})%><br>
   </p>
 
   <p>
     <%= form.label :deadline %><br>
-    <%= form.date_select :deadline %>
+    <%= form.date_select :deadline, {}, {class: "dropdown-toggle btn btn-secondary p-1"} %>
   </p>
 
   <p>
-    <%= form.submit "Create Todo Item"%>
+    <%= link_to 'Back', todolists_path, class: "btn btn-danger px-2 mr-4" %>
+    <%= form.submit "Create Todo Item", class: "btn btn-success px-3 ml-4", style: "border-radius: 10rem;" %>
   </p>
 <% end %>
 
-<%= link_to 'Back', todolists_path %>
